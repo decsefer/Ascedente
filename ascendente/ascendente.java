@@ -4,7 +4,7 @@ import java.util.Stack;
 
 public class ascendente{
     private int i = 0;
-    private boolean hayErrores = false;
+    private boolean hayErroresults = false;
     private Token preanalisis;
     private final List<Token> tokens;
 
@@ -13,36 +13,36 @@ public class ascendente{
         preanalisis=this.tokens.get(i);
     }
 
-    public void analisis(){
+    public void preanalisis(){
         Stack<String> stack=new Stack<>();
-        stack.push("1");//se llena con el primer estado
-        String x=stack.peek();//apuntamos el tope de la pila
-        Boolean re=true;
-        while(re){//bulce infinito
-            switch (x) {
+        stack.push("1");
+        String peek=stack.peek();
+        Boolean result=true;
+        while(result){//bulce infinito
+            switch (peek) {
                 case "1":
                     if("SELECT".equals(preanalisis.tipo.name())){
                         stack.push("SELECT");
                         stack.push("3");
-                        x=stack.peek();
+                        peek=stack.peek();
                         i++;
                         preanalisis=this.tokens.get(i);
                     }
                     else{
                          System.out.println("Error: se esperaba un SELECT");
-                         hayErrores=true;
-                         re=false;
+                         hayErroresults=true;
+                         result=false;
                     }
                     break;
 
                 case "2":
                     if("EOF".equals(preanalisis.tipo.name())){
-                        hayErrores=false;
-                        re=false;
+                        hayErroresults=false;
+                        result=false;
                     }
                     else{
                         System.out.println("Error");
-                        re=false;
+                        result=false;
                     }
                     break;
 
@@ -50,22 +50,22 @@ public class ascendente{
                     if("DISTINCT".equals(preanalisis.tipo.name())){
                         stack.push("DISTINCT");
                         stack.push("14");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else if("ASTERISCO".equals(preanalisis.tipo.name())){
                         stack.push("ASTERISCO");
                         stack.push("25");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else if("IDENTIFICADOR".equals(preanalisis.tipo.name())){
                         stack.push("IDENTIFICADOR");
                         stack.push("19");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba un DISTINCT o ASTERISCO o IDENTIFICADOR");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     i++;
                     preanalisis=this.tokens.get(i);
@@ -75,12 +75,12 @@ public class ascendente{
                     if("FROM".equals(preanalisis.tipo.name())){
                         stack.push("FROM");
                         stack.push("5");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba un FROM");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     i++;
                     preanalisis=this.tokens.get(i);
@@ -90,12 +90,12 @@ public class ascendente{
                     if("IDENTIFICADOR".equals(preanalisis.tipo.name())){
                         stack.push("IDENTIFICADOR");
                         stack.push("7");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba un IDENTIFICADOR");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     i++;
                     preanalisis=this.tokens.get(i);
@@ -105,7 +105,7 @@ public class ascendente{
                     if("COMA".equals(preanalisis.tipo.name())){
                         stack.push("COMA");
                         stack.push("8");
-                        x=stack.peek();
+                        peek=stack.peek();
                         i++;
                         preanalisis=this.tokens.get(i);
                     }
@@ -114,12 +114,12 @@ public class ascendente{
                         stack.pop();
                         stack.push("EOF");
                         stack.push("2");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba una COMA");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     break;
                 
@@ -127,7 +127,7 @@ public class ascendente{
                     if("IDENTIFICADOR".equals(preanalisis.tipo.name())){
                         stack.push("IDENTIFICADOR");
                         stack.push("10");
-                        x=stack.peek();
+                        peek=stack.peek();
                         i++;
                         preanalisis=this.tokens.get(i);
                     }
@@ -136,19 +136,19 @@ public class ascendente{
                         stack.pop();
                         stack.push("COMA");
                         stack.push("11");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else if("EOF".equals(preanalisis.tipo.name())){
                         stack.pop();
                         stack.pop();
                         stack.push("EOF");
                         stack.push("11");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba un IDENTIFICADOR");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     break;
                 
@@ -156,12 +156,12 @@ public class ascendente{
                     if("IDENTIFICADOR".equals(preanalisis.tipo.name())){
                         stack.push("IDENTIFICADOR");
                         stack.push("7");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba un IDENTIFICADOR");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     i++;
                     preanalisis=this.tokens.get(i);
@@ -173,17 +173,17 @@ public class ascendente{
                     if("COMA".equals(preanalisis.tipo.name())){
                         stack.push("COMA");
                         stack.push("11");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else if("EOF".equals(preanalisis.tipo.name())){
                         stack.push("EOF");
                         stack.push("11");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba una COMA");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     break;
 
@@ -193,17 +193,17 @@ public class ascendente{
                     if("COMA".equals(preanalisis.tipo.name())){
                         stack.push("COMA");
                         stack.push("12");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else if("EOF".equals(preanalisis.tipo.name())){
                         stack.push("EOF");
                         stack.push("12");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba una COMA");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     break;
 
@@ -213,17 +213,17 @@ public class ascendente{
                     if("COMA".equals(preanalisis.tipo.name())){
                         stack.push("COMA");
                         stack.push("6");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else if("EOF".equals(preanalisis.tipo.name())){
                         stack.push("EOF");
                         stack.push("6");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba una COMA");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     break;
 
@@ -233,17 +233,17 @@ public class ascendente{
                     if("COMA".equals(preanalisis.tipo.name())){
                         stack.push("COMA");
                         stack.push("6");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else if("EOF".equals(preanalisis.tipo.name())){
                         stack.push("EOF");
                         stack.push("6");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba una COMA");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     break;
 
@@ -251,17 +251,17 @@ public class ascendente{
                     if("ASTERISCO".equals(preanalisis.tipo.name())){
                         stack.push("ASTERISCO");
                         stack.push("25");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else if("IDENTIFICADOR".equals(preanalisis.tipo.name())){
                         stack.push("IDENTIFICADOR");
                         stack.push("19");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba un ASTERISCO o IDENTIFICADOR");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     i++;
                     preanalisis=this.tokens.get(i);
@@ -273,12 +273,12 @@ public class ascendente{
                     if("FROM".equals(preanalisis.tipo.name())){
                         stack.push("FROM");
                         stack.push("4");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba un FROM");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     break;
 
@@ -286,19 +286,19 @@ public class ascendente{
                     if("COMA".equals(preanalisis.tipo.name())){
                         stack.push("COMA");
                         stack.push("17");
-                        x=stack.peek();
+                        peek=stack.peek();
                         i++;
                         preanalisis=this.tokens.get(i);
                     }
                     else if("FROM".equals(preanalisis.tipo.name())){
                         stack.push("FROM");
                         stack.push("15");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba una COMA ");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     
                     break;
@@ -307,12 +307,12 @@ public class ascendente{
                     if("IDENTIFICADOR".equals(preanalisis.tipo.name())){
                         stack.push("IDENTIFICADOR");
                         stack.push("19");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba un IDENTIFICADOR");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     i++;
                     preanalisis=this.tokens.get(i);
@@ -322,17 +322,17 @@ public class ascendente{
                     if("FROM".equals(preanalisis.tipo.name())){
                         stack.push("FROM");
                         stack.push("16");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else if("COMA".equals(preanalisis.tipo.name())){
                         stack.push("COMA");
                         stack.push("16");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba una COMA o FROM");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     break;
 
@@ -340,7 +340,7 @@ public class ascendente{
                     if("PUNTO".equals(preanalisis.tipo.name())){
                             stack.push("PUNTO");
                             stack.push("21");
-                            x=stack.peek();
+                            peek=stack.peek();
                             i++;
                             preanalisis=this.tokens.get(i);
                     }
@@ -349,19 +349,19 @@ public class ascendente{
                         stack.pop();
                         stack.push("FROM");
                         stack.push("20");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else if("COMA".equals(preanalisis.tipo.name())){
                         stack.pop();
                         stack.pop();
                         stack.push("COMA");
                         stack.push("20");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba un PUNTO");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     break;
 
@@ -369,17 +369,17 @@ public class ascendente{
                     if("FROM".equals(preanalisis.tipo.name())){
                             stack.push("FROM");
                             stack.push("24");
-                            x=stack.peek();
+                            peek=stack.peek();
                     }
                     else if("COMA".equals(preanalisis.tipo.name())){
                             stack.push("COMA");
                             stack.push("24");
-                            x=stack.peek();
+                            peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba un FROM o COMA");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     break;
 
@@ -387,12 +387,12 @@ public class ascendente{
                     if("IDENTIFICADOR".equals(preanalisis.tipo.name())){
                         stack.push("IDENTIFICADOR");
                         stack.push("23");
-                        x=stack.peek();
+                        peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba un IDENTIFICADOR");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     i++;
                     preanalisis=this.tokens.get(i);
@@ -402,17 +402,17 @@ public class ascendente{
                     if("FROM".equals(preanalisis.tipo.name())){
                             stack.push("FROM");
                             stack.push("20");
-                            x=stack.peek();
+                            peek=stack.peek();
                     }
                     else if("COMA".equals(preanalisis.tipo.name())){
                             stack.push("COMA");
                             stack.push("20");
-                            x=stack.peek();
+                            peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba un FROM o COMA");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     break;
 
@@ -420,17 +420,17 @@ public class ascendente{
                     if("FROM".equals(preanalisis.tipo.name())){
                             stack.push("FROM");
                             stack.push("16");
-                            x=stack.peek();
+                            peek=stack.peek();
                     }
                     else if("COMA".equals(preanalisis.tipo.name())){
                             stack.push("COMA");
                             stack.push("16");
-                            x=stack.peek();
+                            peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba un FROM o COMA");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     break;
 
@@ -440,12 +440,12 @@ public class ascendente{
                     if("FROM".equals(preanalisis.tipo.name())){
                             stack.push("FROM");
                             stack.push("15");
-                            x=stack.peek();
+                            peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba un FROM");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     break;
 
@@ -453,25 +453,25 @@ public class ascendente{
                     if("FROM".equals(preanalisis.tipo.name())){
                             stack.push("FROM");
                             stack.push("4");
-                            x=stack.peek();
+                            peek=stack.peek();
                     }
                     else{
                         System.out.println("Error: se esperaba un FROM");
-                        hayErrores=true;
-                        re=false;
+                        hayErroresults=true;
+                        result=false;
                     }
                     break;
                 default:
                     System.out.println("Error: se ha encontrado error desconocido");
-                    re=false;
-                    hayErrores=true;
+                    result=false;
+                    hayErroresults=true;
                     break;
             }
         }
     }
     
     public boolean parse(){
-        analisis();
-        return !hayErrores;
+        preanalisis();
+        return !hayErroresults;
     }
 }

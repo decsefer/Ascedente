@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class main {
-    static boolean existenErrores=false;
+    static boolean err=false;
     public static void main(String[] args)throws IOException{
          ejecutarPrompt();   
     }
@@ -16,16 +16,16 @@ public class main {
         BufferedReader reader= new BufferedReader(input);
 
         while(true){
-            System.out.print(">>>");
-            String linea=reader.readLine();
-            if(linea==null) break;
-            ejecutar(linea);
-            existenErrores=false;
+            System.out.print("cadena: ");
+            String cadena=reader.readLine();
+            if(cadena==null) break;
+            ejecutar(cadena);
+            err=false;
         }
     }
-    public static void ejecutar(String source){
+    public static void ejecutar(String input){
 
-       Scanner scanner= new Scanner(source);
+       Scanner scanner= new Scanner(input);
         List<Token> tokens= scanner.scanTokens();
         
         ascendente parser = new ascendente(tokens);

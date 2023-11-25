@@ -1,34 +1,34 @@
 package ascendente;
 public class Token {
-    final TipoToken tipo;
+    final tipoToken tipo;
     final String lexema;
     final int posicion;
 
-    public Token(TipoToken tipo, String lexema, int posicion){
+    public Token(tipoToken tipo, String lexema, int posicion){
         this.tipo=tipo;
         this.lexema=lexema;
         this.posicion=posicion;
     }
 
-    public Token(TipoToken tipo, String lexema){
+    public Token(tipoToken tipo, String lexema){
         this.tipo=tipo;
         this.lexema=lexema;
         this.posicion=0;
     }
     @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Token)) {
+    public boolean equals(Object cadena) {
+        if (!(cadena instanceof Token)) {
             return false;
         }
 
-        if(this.tipo == ((Token)o).tipo){
+        if(this.tipo == ((Token)cadena).tipo){//cast
             return true;
         }
 
         return false;
     }
 
-    public enum TipoToken {
+    public enum tipoToken {
     IDENTIFICADOR,
 
     //PALABRAS RESERVADAS
@@ -41,7 +41,5 @@ public class Token {
     EOF
 }
     
-    public String toString(){
-        return "<<"+tipo+" "+lexema+">>";
-    }
+  
 }
